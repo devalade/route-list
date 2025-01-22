@@ -1,0 +1,29 @@
+{
+  "name": "@devalade/route-list",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devalade/route-list.git"
+  },
+  "bin": {
+    "route-list": "./dist/route-list.js"
+  },
+  "exports": {
+    ".": "./dist/route-list.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "typecheck": "tsc -p tsconfig.lib.json --noEmit",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.test.ts'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "pnpm@9.14.4"
+}
