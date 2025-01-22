@@ -42,7 +42,6 @@ export function findNextJsRoutes(dir: string): Route[] {
     }
   };
 
-  // Function to process pages directory (Pages Router)
   const processPagesDirectory: RouteScanner['processPagesDirectory'] = (
     currentPath: string,
     routePath: string = ''
@@ -73,18 +72,15 @@ export function findNextJsRoutes(dir: string): Route[] {
     }
   };
 
-  // First check for src directory
   const srcDir: string = path.join(dir, 'src');
   const baseDir: string = fs.existsSync(srcDir) ? srcDir : dir;
 
-  // Check if using App Router
   const appDir: string = path.join(baseDir, 'app');
   if (fs.existsSync(appDir)) {
     console.log('Found App Router directory...');
     processAppDirectory(appDir);
   }
 
-  // Check if using Pages Router
   const pagesDir: string = path.join(baseDir, 'pages');
   if (fs.existsSync(pagesDir)) {
     console.log('Found Pages Router directory...');
