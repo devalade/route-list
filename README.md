@@ -1,73 +1,139 @@
-# TypeScript Package Template
 
-The simplest typescript package template I can think of.
+# Next.js Route List
 
-- Node built-in testing: `node:test` and `node:assert`
-- TypeScript with Node's `--experimental-strip-types` instead of compiling
-- Develop, test, debug directly in your code with VSCode's built-in features, no CLI + console.log shenanigans
-- Publish with `npm version` and a GitHub action
+A simple command-line tool to scan and list all routes in your Next.js application, supporting both the App Router and Pages Router patterns.
 
-## Setting up
+## Features
 
-A simple script will set some values in package.json and rename files in src/ for your package name:
+- ✅ Supports Next.js App Router (`app` directory)
+- ✅ Supports Next.js Pages Router (`pages` directory)
+- ✅ Handles projects with `src` directory structure
+- ✅ Supports TypeScript (`.tsx`) and JavaScript (`.js`) files
+- ✅ Handles route groups `(...)` in App Router
+- ✅ Clean and formatted output
 
-```sh
-node --experimental-strip-types scripts/setup.ts <your user name> <your package name>
+## Installation
+
+```bash
+npm install next-route-list
+# or
+yarn add next-route-list
+# or
+pnpm add next-route-list
 ```
 
-Or you can just edit package.json manually before you publish to npm.
+## Usage
 
-## Development
+### As a CLI Tool
 
-**VSCode Setup**
+Add this to your `package.json` scripts:
 
-1. Install [Node Test Runner Extension](https://marketplace.visualstudio.com/items?itemName=connor4312.nodejs-testing)
-2. Click the "Testing" tab in the VSCode Activity Bar
-3. Reload VSCode Window or restart vscode if you don't see any tests in the sidebar
-
-**Workflow**
-
-1. Open a test file
-2. Click the testing buttons in the gutter to run a test
-3. Set breakpoints in the gutter and run the test in the debugger (click the play button in the error popup with the bug on it)
-
-**Keyboard shortcuts**
-
-- Run all tests in the current **f**ile with `Command + ; + f`
-- Run **c**urrent test at the cursor with `Command + ; + c`
-
-**Playing around**
-
-You can run any file in the debugger with F5. Or click the debug icon in the Activity Bar and click the play button up top.
-
-## CI Scripts
-
-```sh
-# run tests
-pnpm test
-# compile typescript to ./dist
-pnpm build
+```json
+{
+  "scripts": {
+    "routes": "route-list"
+  }
+}
 ```
 
-## Releasing
+Then run:
 
-**Setup**
-
-First add an NPM token to your GitHub repository secrets. Log into npm to get one.
-
-**Publishing a Release**
-
-Create a tag and update package.json with `npm version`
-
-```sh
-# npm version patch | minor | major
-npm version patch
+```bash
+npm run routes
+# or
+yarn routes
+# or
+pnpm routes
 ```
 
-Then push to GitHub.
+### Programmatic Usage
 
-```sh
-git push origin main --tags
+```typescript
+import { findNextJsRoutes } from 'next-route-list';
+
+// Get all routes in your Next.js project
+const routes = findNextJsRoutes(process.cwd());
+console.log(routes);
 ```
 
-The GitHub action will match the tag and release.
+## Example Output
+
+```bash
+Scanning Next.js routes...
+
+Found App Router directory...
+Found Pages Router directory...
+
+Found routes:
+- /
+- /about
+- /blog
+- /blog/[slug]
+- /contact
+- /products/[category]/[id]
+
+Total routes found: 6
+```
+
+## Supported Project Structures
+
+The tool works with various Next.js project structures:
+
+### Standard Structure
+```
+my-next-app/
+├── app/                  # App Router
+│   ├── page.tsx
+│   └── about/
+│       └── page.tsx
+└── pages/               # Pages Router
+    ├── index.tsx
+    └── blog/
+        └── index.tsx
+```
+
+### Src Directory Structure
+```
+my-next-app/
+└── src/
+    ├── app/            # App Router
+    │   ├── page.tsx
+    │   └── about/
+    │       └── page.tsx
+    └── pages/         # Pages Router
+        ├── index.tsx
+        └── blog/
+            └── index.tsx
+```
+
+## Route Detection Rules
+
+### App Router (`app` directory)
+- Detects routes from files named `page.js` or `page.tsx`
+- Handles route groups (folders starting with parentheses)
+- Ignores files that aren't pages (like layout.tsx, loading.tsx)
+
+### Pages Router (`pages` directory)
+- Detects routes from `.js` and `.tsx` files
+- Converts `index` files to root routes
+- Maintains folder structure in route paths
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Notes
+
+- The tool ignores `node_modules` and hidden folders (starting with '.')
+- Route paths are normalized to ensure consistent formatting
+- Both App Router and Pages Router can coexist in the same project
