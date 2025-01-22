@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { findNextJsRoutes, type Route } from "./lib/find-nextjs-routes.ts";
 
 
