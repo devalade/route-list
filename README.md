@@ -1,7 +1,6 @@
-
 # Next.js Route List
 
-A simple command-line tool to scan and list all routes in your Next.js application, supporting both the App Router and Pages Router patterns.
+A command-line tool to scan and list all routes in your Next.js application, supporting both the App Router and Pages Router patterns.
 
 ## Features
 
@@ -14,47 +13,25 @@ A simple command-line tool to scan and list all routes in your Next.js applicati
 
 ## Installation
 
+Install globally using your preferred package manager:
+
 ```bash
-npm install next-route-list
+npm install -g @devalade/route-list
 # or
-yarn add next-route-list
+yarn global add @devalade/route-list
 # or
-pnpm add next-route-list
+pnpm add -g @devalade/route-list
 ```
 
 ## Usage
 
-### As a CLI Tool
-
-Add this to your `package.json` scripts:
-
-```json
-{
-  "scripts": {
-    "routes": "route-list"
-  }
-}
-```
-
-Then run:
+Navigate to your Next.js project directory and run:
 
 ```bash
-npm run routes
-# or
-yarn routes
-# or
-pnpm routes
+route-list
 ```
 
-### Programmatic Usage
-
-```typescript
-import { findNextJsRoutes } from 'next-route-list';
-
-// Get all routes in your Next.js project
-const routes = findNextJsRoutes(process.cwd());
-console.log(routes);
-```
+That's it! The tool will automatically scan your project and list all available routes.
 
 ## Example Output
 
@@ -118,6 +95,15 @@ my-next-app/
 - Converts `index` files to root routes
 - Maintains folder structure in route paths
 
+## Troubleshooting
+
+If you encounter any issues:
+
+1. Ensure you're in a Next.js project directory
+2. Verify that you have either an `app` or `pages` directory (or both)
+3. Check if your project uses a `src` directory structure
+4. Make sure you have read permissions for the project directory
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -131,6 +117,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Author
+
+[Devalade](https://github.com/devalade)
 
 ## Notes
 
